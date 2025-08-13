@@ -6,6 +6,7 @@ import { getErrorMessage } from "./getErrorMessage";
 import { Tag, Space } from "antd";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import EnImg from "./en.png";
+import EnLoading from "./loading.png";
 
 function App() {
   const [nodes, setNodes] = useState([]);
@@ -14,6 +15,7 @@ function App() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const paramValue = urlParams.get("token");
+  const [loading, setLoading] = useState(true);
 
   function buildTree(flat) {
     // Step 1: Create a map from id -> node
@@ -64,6 +66,7 @@ function App() {
 
   const fetchValues = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `https://seatek-api.seateklab.vn/api/get-departments-through-access-token?token=${paramValue}`
       );
@@ -92,12 +95,32 @@ function App() {
     } catch (error) {
       const msg = getErrorMessage(error);
       setError(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchValues();
   }, []);
+
+  if (loading)
+    return (
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <img alt="" src={EnLoading} style={{ width: 170 }} />
+        <h2>Đang tải dữ liệu</h2>
+      </div>
+    );
+
   return error ? (
     <div
       style={{

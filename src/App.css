@@ -1,0 +1,35 @@
+.node-template {
+    text-align: center;
+    min-width:250px;
+    max-width: 300px;
+}
+
+.node-template strong {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.node-template span {
+    display: flex;
+    padding: 0.25em;
+}
+
+.hierarchy-viewer {
+    display: block;
+}
+
+.level1 {
+    background-color: rgb(231, 228, 255);
+}
+
+.level2 {
+    background-color: rgb(255, 237, 227);
+}
+
+.level3 {
+    background-color: rgb(242, 248, 227);
+}
